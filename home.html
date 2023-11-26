@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="shortcut icon" href="./assets/Recursos Moviestack/Moviestack_favicon.png" type="image/x-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex flex-col h-screen ">
+    <header>
+      <nav class="items-center text-xl gap-8 flex flex-col md:flex-row justify-end bg-slate-700	 p-3 border-red border-2">
+        <div class="flex md:mr-auto gap-4 items-center">
+          <img id="logo" class="w-10" src="./assets/carrete-de-pelicula.png" alt="" srcset="">
+          <h1 class=" bg-white text-black  px-2 py-1 rounded">MOVIESTACK</h1>
+      </div>    
+        <a class="text-white border-solid border-2 p-1" href="#">HOME</a>
+        <a class="text-white border-solid border-2 p-1" href="./movies.html">MOVIES</a>
+        <a class="text-white border-solid border-2 p-1" href="./favs.html">FAVS</a>
+
+        
+      </nav>
+    </header>
+    <main class="flex-grow bg-slate-900 " >
+        <img class="banner py-2 w-4/5 mx-auto" src="./assets/marvel.jpg" alt="">
+        <p class="text-gray-300 text-2xl p-6  mx-auto text-center">"Welcome to our passion for cinema! On our site, you will explore an exciting world of films that span genres, decades and cultures. From timeless classics to the latest blockbusters, we are here to share the magic of cinema with you. Discover reviews , industry news, recommendations and much more. Join us on a cinematic journey that celebrates the beauty and power of movies. Ready to immerse yourself in the big screen?"</p>
+        <div class="div-container flex w-full justify-around py-20">
+    <a class="md:w-1/3 relative" href="./movies.html">
+        <img id="ticket" class="hover:opacity-80 hover:transform hover:scale-105 transition-transform duration-300 px-4"
+            src="./assets/ticket.jpg" alt="" srcset="">
+        <div
+            class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white text-2xl font-bold">GO TO LIST OF MOVIES</p>
+        </div>
+    </a>
+    <a class="md:w-1/3 relative" href="./favs.html">
+        <img id="pochoclo"
+            class="hover:opacity-80 hover:transform hover:scale-105 transition-transform duration-300 px-4"
+            src="./assets/pochoclo_chico.jpg" alt="" srcset="">
+        <div
+            class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <p class="text-gray-700 text-2xl font-bold">GO TO FAVORITE MOVIES</p>
+        </div>
+    </a>
+</div>
+      </main>
+    
+    <footer class="flex gap-20 justify-center text-gray-300	 bg-slate-700 p-3  border-2">
+     <p>MINDHUB</P>
+     <p>COHORT 52</p>
+    </footer>
+
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/home.js"></script>
+    <script src="./scripts/movies.js"></script>
+  </body>
+</html> 

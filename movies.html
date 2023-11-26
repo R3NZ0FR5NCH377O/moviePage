@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Workshop vue">
+<link rel="shortcut icon" href="./assets/Recursos Moviestack/Moviestack_favicon.png" type="image/x-icon">    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title> Movie Vue </title>
+</head>
+
+<body>
+    <div class="min-h-screen w-full flex flex-col bg-gray-400" id="app">
+        <nav class="items-center text-xl gap-4 md:gap-8 md:flex-row flex flex-col justify-end bg-slate-700 p-3 border-red border-2">
+            <div class="flex md:mr-auto gap-4 items-center">
+                <h1 class="bg-white text-black px-2 py-1 rounded">MOVIESTACK</h1>
+            </div>
+            <a class="text-white border-solid border-2 p-1" href="./home.html">HOME</a>
+            <a class="text-white border-solid border-2 p-1" href="#">MOVIES</a>
+            <a class="text-white border-solid border-2 p-1" href="./favs.html">FAVS</a>
+        </nav>
+        <header class="p-20 pt-2 pb-1">
+            <img class="w-full h-[550px]  object-cover"
+                src="https://imgs.search.brave.com/BzBDSpmb3V5zt9G2TKO3JuMbB03f4zwi2V8AebFZojo/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MzY0NDAxMzY2Mjgt/ODQ5YzE3N2U3NmEx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tlh4/OGNHVnNKVU16SlVG/RVkzVnNZWHhsYm53/d2ZId3dmSHg4TUE9/PSZ3PTEwMDAmcT04/MA"
+                alt="">
+        </header>
+        <search class="w-full py-2 flex bg-gray-400 justify-center items-center gap-5">
+            <div class="flex flex-col items-center space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-6 p-4 bg-white rounded-xl shadow-lg hover:shadow-xl">
+                <div class="flex bg-gray-100 p-2 w-full md:w-72 space-x-4 rounded-lg relative">
+                    <input class="bg-gray-100 outline-none w-full" type="text" placeholder="Search by name" v-model="search" v-on:input="filtrar" />
+                </div>
+                <select class="outline-none flex py-3 px-4 rounded-lg text-gray-500 font-semibold cursor-pointer w-full md:w-auto" v-model="selectedGenre" v-on:change="filtrar">
+                    <option value="all">All genres</option>
+                    <template v-for="genero of generos">
+                        <option v-bind:value="genero">{{genero}}</option>
+                    </template>
+                </select>
+            </div>
+        </search>
+        <main class="w-full grow flex flex-wrap gap-5 justify-center items-center" id="contenedor">
+            <template v-if="peliculasFiltradas.length > 0" v-for="pelicula in peliculasFiltradas">
+                <div class="bg-white rounded overflow-hidden shadow-lg w-60 max-h-[450px] min-h-[450px]">
+                    <div class="cursor-pointer" @click="toggleFavorito(pelicula)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" class="h-10 w-10 rounded-full" :class="{ 'text-red-500': pelicula.favorito }">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C16.09 3.81 17.76 3 19.5 3 22.58 3 26 6.42 26 9.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    
+                    <img v-if="pelicula.image" class="w-full"
+                        v-bind:src="`https://moviestack.onrender.com/static/`+pelicula.image"
+                        v-bind:alt="'Imagen de ' + pelicula.image">
+                    <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2"> {{ pelicula.title }} </div>
+                        <p class="text-gray-700 text-base line-clamp-4"> {{ pelicula.overview }}</p>
+                    </div>
+                    <div class=" px-6 pt-4 pb-2 flex flex-col  ">
+                      
+                        <span
+                            class=" inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 mb-0 ">      
+                            <a :href="`./details.html?id=${pelicula.id}`">Details</a>
+                        </span>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <h2>We dont have any movies bro</h2>
+            </template>
+        </main>
+        <div class="pagination flex justify-center items-center mb-4 mt-6">
+            <button id="paginaAnterior"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
+                @click="irPagina(-1)" :disabled="paginaActual === 1">Anterior</button>
+            <span id="indicadorPagina" class="text-black mx-4">Página {{ paginaActual }} de {{ Math.ceil(totalPeliculas / peliculasPorPagina) }}</span>
+            <button id="paginaSiguiente"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                @click="irPagina(1)" :disabled="paginaActual === Math.ceil(totalPeliculas / peliculasPorPagina)">Siguiente</button>
+        </div>
+        <footer class="items-center text-xl gap-4 md:gap-8 md:flex-row flex flex-col md:justify-around bg-slate-700 p-3 border-red border-2">
+            <div class="flex md: gap-4 items-center">
+                <h1 class="bg-white text-black px-2 py-1 rounded">COHORTE 52</h1>
+            </div>
+            <div class="flex md: gap-4 items-center">
+                <h1 class="bg-white text-black px-2 py-1 rounded">RENZO FRANCHETTO</h1>
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="./tailwind.config.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="./movies.js"></script>
+</body>
+
+</html>

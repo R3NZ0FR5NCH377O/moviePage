@@ -1,0 +1,65 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  td{
+    border: solid 2px white;
+    padding: 20px;
+  }
+  
+
+  #prevPage, #nextPage {
+    background-color: #3490dc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #prevPage:disabled, #nextPage:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  #pageIndicator {
+    margin: 0 20px;
+  }
+@media (max-width: 769px) {
+    .pagination {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #prevPage, #nextPage {
+        width: 100%; 
+        margin: 10px 0; 
+    }
+    #main-content{
+        flex-direction: column;
+        min-width: 100%;
+    }
+    #main-content div {
+      flex-direction: column;
+      min-width: 100%;
+      
+  }
+  .div-container{
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    
+  }
+
+  .banner{
+    width: 98%;
+  }
+  
+}
+
+
+
+
+
+
